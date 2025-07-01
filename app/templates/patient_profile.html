@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Patient Profile Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/p.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Patient Registration & Medical Information</h2>
+        <form method="POST" action="/patient/submit">
+            <!-- Personal Details -->
+            <fieldset>
+                <legend>Personal Details</legend>
+                <label>Full Name:</label>
+                <input type="text" name="name" required>
+
+                <label>Gender:</label>
+                <select name="gender" required>
+                    <option value="">--Select--</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                </select>
+
+                <label>Date of Birth:</label>
+                <input type="date" name="dob" required>
+
+                <label>Age:</label>
+                <input type="number" name="age" required min="0">
+
+                <label>Blood Group:</label>
+                <select name="blood_group" required>
+                    <option value="">--Select--</option>
+                    <option>A+</option><option>A-</option>
+                    <option>B+</option><option>B-</option>
+                    <option>AB+</option><option>AB-</option>
+                    <option>O+</option><option>O-</option>
+                </select>
+
+                <label>Contact Number:</label>
+                <input type="tel" name="contact_number" required>
+
+                <label>Email Address:</label>
+                <input type="email" name="email" required>
+
+                <label>Emergency Contact:</label>
+                <input type="tel" name="emergency_contact" required>
+            </fieldset>
+
+            <!-- Medical Information -->
+            <fieldset>
+                <legend>Medical & Transfusion Details</legend>
+                <label>Medical History:</label>
+                <textarea name="medical_history" rows="3"></textarea>
+
+                <label>Current Medications:</label>
+                <textarea name="current_medication" rows="2"></textarea>
+
+                <label>Last Transfusion Date:</label>
+                <input type="date" name="last_transfusion">
+
+                <label>Number of Transfusions:</label>
+                <input type="number" name="num_transfusions" min="0">
+
+                <label>Reason for Transfusion:</label>
+                <textarea name="transfusion_reason" rows="3"></textarea>
+
+                <label>Allergies:</label>
+                <textarea name="allergies" rows="2"></textarea>
+
+                <label>Pre-existing Conditions:</label>
+                <textarea name="conditions" rows="2"></textarea>
+            </fieldset>
+
+            <!-- Blood Request Info -->
+            <fieldset>
+                <legend>Blood Request Information</legend>
+
+                <label>Urgency Status:</label>
+                <select name="status" required>
+                    <option value="">--Select--</option>
+                    <option value="Urgent">Urgent</option>
+                    <option value="Not Urgent">Not Urgent</option>
+                </select>
+
+                <label>Date Requested:</label>
+                <input type="date" name="date_requested" required>
+
+                <label>Reason for Request:</label>
+                <textarea name="reason" rows="3" required></textarea>
+
+                <label>Units Required:</label>
+                <input type="number" name="units_required" min="1" required>
+            </fieldset>
+
+            <button type="submit">Submit Information</button>
+        </form>
+    </div>
+    <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+
+</body>
+</html>

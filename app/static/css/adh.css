@@ -1,0 +1,94 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #fdf2f2;
+    color: #333;
+}
+
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+h1 {
+    color: #b30000;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.data-table th,
+.data-table td {
+    border: 1px solid #ffcccc;
+    padding: 12px;
+    text-align: center;
+}
+
+.data-table th {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: #fff0f0;
+}
+
+.data-table tr:hover {
+    background-color: #ffe6e6;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.badge-warning {
+    background-color: #ffcc00;
+    color: #000;
+}
+
+.badge-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn {
+    padding: 5px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.btn-success {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+p {
+    text-align: center;
+    font-weight: bold;
+}

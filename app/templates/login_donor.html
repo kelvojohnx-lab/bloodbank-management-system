@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Donor Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/logg.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Donor Login</h2>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="POST">
+            <label for="email">Email</label>
+            <input type="email" name="email" required>
+
+            <label for="password">Password</label>
+            <input type="password" name="password" required>
+
+            <button type="submit">Login</button>
+        </form>
+        <p>Don't have an account? <a href="{{ url_for('register_donor') }}">Register as a donor</a></p>
+    </div>
+</body>
+</html>

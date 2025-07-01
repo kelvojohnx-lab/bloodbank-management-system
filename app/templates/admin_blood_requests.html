@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blood Requests</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adm.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+<div class="main-content">
+    <h1>Patient Blood Requests</h1>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Patient Name</th>
+                <th>Email</th>
+                <th>Blood Group</th>
+                <th>Units Required</th>
+                <th>Reason</th>
+                <th>Date Requested</th>
+                <th>Urgency</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for r in patient_requests %}
+            <tr>
+                <td>{{ r.name }}</td>
+                <td>{{ r.email }}</td>
+                <td>{{ r.blood_group }}</td>
+                <td>{{ r.units_required }}</td>
+                <td>{{ r.reason }}</td>
+                <td>{{ r.date_requested }}</td>
+                <td>{{ r.urgency_status }}</td>
+                <td>
+                    {% if r.request_status == "approved" %}
+                        <span style="color: green;">Approved</span>
+                    {% elif r.request_status == "rejected" %}
+                        <span style="color: red;">Rejected</span>
+                    {% else %}
+                        <span style="color: orange;">Pending</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <form method="POST" action="{{ url_for('approve_patient_request', request_id=r.id) }}" style="display:inline;">
+                        <button class="btn btn-approve" onclick="return confirm('Approve this request?')">Approve</button>
+                    </form>
+                    <form method="POST" action="{{ url_for('reject_patient_request', request_id=r.id) }}" style="display:inline;">
+                        <button class="btn btn-reject" onclick="return confirm('Reject this request?')">Reject</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="9">No blood requests available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- ✅ SweetAlert2 flash message block -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        {% for category, message in messages %}
+          Swal.fire({
+            icon: '{{ 'success' if category == 'success' else 'error' }}',
+            title: '{{ 'Success!' if category == 'success' else 'Oops...' }}',
+            text: "{{ message }}",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+          });
+        {% endfor %}
+      });
+    </script>
+  {% endif %}
+{% endwith %}
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blood Request Form</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/adm.css') }}">
+</head>
+<body>
+  <div class="main-content">
+    <h1>Submit Blood Request</h1>
+
+    {% if error %}
+      <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="POST">
+      <label>Patient Name:</label>
+      <input type="text" name="patient_name" required><br>
+
+      <label>Email:</label>
+      <input type="email" name="email" required><br>
+
+      <label>Blood Type:</label>
+      <select name="blood_type" required>
+        <option>A+</option><option>A-</option>
+        <option>B+</option><option>B-</option>
+        <option>AB+</option><option>AB-</option>
+        <option>O+</option><option>O-</option>
+      </select><br>
+
+      <label>Units Needed:</label>
+      <input type="number" name="units" min="1" required><br>
+
+      <label>Reason for Request:</label>
+      <textarea name="reason" rows="3" required></textarea><br>
+
+      <button type="submit">Submit Request</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,102 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(to right, #ff6b6b, #f06595);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Form Container */
+.form-container {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Heading */
+.form-container h2 {
+    margin-bottom: 25px;
+    color: #d6336c;
+    font-size: 24px;
+}
+
+/* Form Labels */
+label {
+    display: block;
+    text-align: left;
+    margin: 15px 0 5px;
+    font-weight: bold;
+    color: #444;
+}
+
+/* Form Inputs */
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: border 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #ff6b6b;
+    outline: none;
+}
+
+/* Submit Button */
+button[type="submit"] {
+    margin-top: 20px;
+    padding: 12px;
+    width: 100%;
+    background-color: #d6336c;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #c2255c;
+}
+
+/* Error Message */
+.error {
+    background-color: #ffe5e5;
+    color: #d8000c;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+/* Register Link */
+.form-container p {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.form-container a {
+    color: #d6336c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.form-container a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blood Bank Admin Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/adm.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2><i class="fas fa-tint"></i> BloodBank</h2>
+    </div>
+    <nav class="sidebar-menu">
+      <ul>
+        <li class="menu-item"><a href="{{ url_for('admin_dashboard') }}" class="menu-link active"><i class="fas fa-home"></i><span>Dashboard</span></a></li>
+        <li class="menu-item"><a href="{{ url_for('admin_donations') }}" class="menu-link"><i class="fas fa-hand-holding-heart"></i><span>Donations</span></a></li>
+        <li class="menu-item"><a href="{{ url_for('admin_blood_requests') }}" class="menu-link"><i class="fas fa-hand-holding-medical"></i><span>Blood Requests</span></a></li>
+        <li class="menu-item"><a href="{{ url_for('blood_stock') }}" class="menu-link"><i class="fas fa-warehouse"></i><span>Blood Stock</span></a></li>
+        <li class="menu-item"><a href="{{ url_for('logout') }}" class="menu-link"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="header">
+      <h1>Admin Dashboard</h1>
+    </div>
+
+    <!-- Dashboard Cards -->
+    <div class="dashboard-cards">
+      <div class="card">
+        <h3>Total Donors</h3>
+        <p class="count">{{ donors_count }}</p>
+        <i class="fas fa-user-plus card-icon"></i>
+      </div>
+      <div class="card">
+        <h3>Total Patients</h3>
+        <p class="count">{{ patients_count }}</p>
+        <i class="fas fa-procedures card-icon"></i>
+      </div>
+      <div class="card">
+        <h3>Pending Requests</h3>
+        <p class="count">{{ pending_requests_count }}</p>
+        <i class="fas fa-clock card-icon"></i>
+      </div>
+      <div class="card urgent-card">
+        <h3>Urgent Needs</h3>
+        <p class="count">{{ urgent_requests_count }}</p>
+        <i class="fas fa-exclamation-triangle card-icon"></i>
+      </div>
+    </div>
+
+    <!-- Donors List -->
+    <div class="content-section">
+      <h2>Donors List</h2>
+      <table class="data-table" id="donors-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Blood Type</th>
+            <th>Infections</th>
+            <th>Age</th>
+            <th>Donation Date</th>
+            <th>Unit</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for donor in donors %}
+          <tr>
+            <td>{{ donor.get('name', 'N/A') }}</td>
+            <td>{{ donor.get('blood_type', 'Unknown') }}</td>
+            <td>{{ donor.get('infections', 'None') }}</td>
+            <td>{{ donor.get('age',) }}</td>
+            <td>{{ donor.get('donation_date',) }}</td>
+            <td>{{ donor.get('unit', 'N/A') }}</td>
+            <td>
+              <span class="badge {% if donor.get('status') == 'approved' %}badge-success{% elif donor.get('status') == 'rejected' %}badge-danger{% else %}badge-secondary{% endif %}">
+                {{ donor.get('status', 'Pending') }}
+              </span>
+            </td>
+            <td>
+              <form method="POST" action="{{ url_for('approve_donor', donor_id=donor['id']) }}" style="display:inline;">
+                <button class="btn btn-approve" onclick="return confirm('Approve this donor?')">Approve</button>
+              </form>
+              <form method="POST" action="{{ url_for('reject_donor', donor_id=donor['id']) }}" style="display:inline;">
+                <button class="btn btn-reject" onclick="return confirm('Reject this donor?')">Reject</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Patients List -->
+    <div class="content-section" style="margin-top: 30px;">
+      <h2>Patients List</h2>
+      <table class="data-table" id="patients-table">
+        <thead>
+          <tr><th>Name</th><th>Email</th><th>Status</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+          {% for patient in patients %}
+          <tr>
+            <td>{{ patient.get('name', 'N/A') }}</td>
+            <td>{{ patient.get('email', 'N/A') }}</td>
+            <td>
+              {% if patient.get('status') == 'approved' %}
+                <span class="badge badge-success">Approved</span>
+              {% elif patient.get('status') == 'rejected' %}
+                <span class="badge badge-danger">Rejected</span>
+              {% else %}
+                <span class="badge badge-warning">Pending</span>
+              {% endif %}
+            </td>
+            <td>
+              <form method="POST" action="{{ url_for('approve_patient', patient_id=patient['id']) }}" style="display:inline;">
+                <button class="btn btn-approve" onclick="return confirm('Approve this patient?')">Approve</button>
+              </form>
+              <form method="POST" action="{{ url_for('reject_patient', patient_id=patient['id']) }}" style="display:inline;">
+                <button class="btn btn-reject" onclick="return confirm('Reject this patient?')">Reject</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script>
+function exportToExcel(tableId) {
+  const table = document.getElementById(tableId);
+  const wb = XLSX.utils.table_to_book(table, { sheet: "Sheet 1" });
+  XLSX.writeFile(wb, "exported_data.xlsx");
+}
+</script>
+</body>
+</html>

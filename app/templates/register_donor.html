@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register - Donor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/reg.css') }}">
+</head>
+<body>
+    <div class="form-container">
+        <h2>Donor Registration</h2>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <form method="POST">
+            <label for="name">Full Name</label>
+            <input type="text" name="name" required>
+
+            <label for="email">Email</label>
+            <input type="email" name="email" required>
+
+            <label for="password">Password</label>
+            <input type="password" name="password" required>
+
+            <label for="blood_type">Blood Type</label>
+            <select name="blood_type" required>
+                <option value="" disabled selected>Select blood type</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+
+            <button type="submit">Register</button>
+        </form>
+        <p>Already a donor? <a href="{{ url_for('login_donor') }}">Login here</a></p>
+    </div>
+</body>
+</html>

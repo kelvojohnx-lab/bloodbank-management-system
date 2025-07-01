@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blood Stock</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/adm.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            background-color: #f9fbff;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+        }
+
+        .main-content {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e1e1e;
+            margin-bottom: 30px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th, .data-table td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .data-table th {
+            background-color: #004080;
+            color: white;
+            font-weight: 600;
+        }
+
+        .data-table tr:nth-child(even) {
+            background-color: #f3f6fa;
+        }
+
+        .low-stock {
+            color: #d9534f;
+            font-weight: bold;
+        }
+
+        .sufficient-stock {
+            color: #28a745;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-content">
+    <h1>Blood Stock - Approved Donations</h1>
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>Blood Type</th>
+                <th>Total Units</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for blood_type, units in blood_stock.items() %}
+            <tr>
+                <td>{{ blood_type }}</td>
+                <td class="{{ 'low-stock' if units < 5 else 'sufficient-stock' }}">{{ units }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="2">No approved blood donations available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- SweetAlert flash messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        {% for category, message in messages %}
+        Swal.fire({
+            icon: '{{ 'success' if category == 'success' else 'error' }}',
+            title: '{{ 'Success' if category == 'success' else 'Oops!' }}',
+            text: "{{ message }}",
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        });
+        {% endfor %}
+      });
+    </script>
+  {% endif %}
+{% endwith %}
+
+</body>
+</html>

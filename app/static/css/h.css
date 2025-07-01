@@ -1,0 +1,66 @@
+body {
+    background-image: url("../images/P9429N.jpg");
+    background-size: cover;            /* Scales image to fill screen */
+    background-repeat: no-repeat;      /* Prevents image from repeating */
+    background-position: center;       /* Centers the image */
+    background-attachment: fixed;      /* Keeps it fixed when scrolling */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+}
+
+
+/* Top right icon and buttons */
+.top-right-bar {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 10;
+}
+
+.top-right-bar i {
+    color: white;
+}
+
+.top-right-bar .btn {
+    padding: 10px 15px;
+    font-size: 14px;
+    background-color: rgba(179, 0, 0, 0.9);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.3s ease;
+}
+
+.top-right-bar .btn:hover {
+    background-color: rgba(128, 0, 0, 0.9);
+}
+
+/* Main content box */
+.container {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    padding: 40px;
+    margin-top: 150px;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+    color: #b30000;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}

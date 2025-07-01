@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Approved Donations</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/adm.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <div class="main-content">
+    <h1>Approved Donations</h1>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Blood Group</th>
+          <th>Age</th>
+          <th>Donation Date</th>
+          <th>Units Donated</th>
+          <th>Infections</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for donor in donors %}
+        <tr>
+          <td>{{ donor.get('name',) }}</td>
+          <td>{{ donor.get('blood_type', 'Unknown') }}</td>
+          <td>{{ donor.get('age',) }}</td>
+          <td>{{ donor.get('donation_date',) }}</td>
+          <td>{{ donor.get('unit',) }}</td>
+          <td>{{ donor.get('infections',) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>
